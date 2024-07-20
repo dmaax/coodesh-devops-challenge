@@ -1,64 +1,36 @@
-# Infra Challenge 20240202
+<p align="center">
+    <h1 align="center">Infra Challenge 20240202 - Coodesh</h1>
+</p>
 
-## Introdução
+<p align="center">
+  <a aria-label="Ansible version" href="https://www.ansible.com/">
+    <img src="https://img.shields.io/badge/v2.15.3-000.svg?logo=Ansible&labelColor=000&style=for-the-badge">
+  </a>
+  <a aria-label="awscli version" href="https://aws.amazon.com/cli/">
+    <img src="https://img.shields.io/badge/2.13.3-000?style=for-the-badge&logo=amazonwebservices&logoColor=white">
+  </a>
+  <a aria-label="Python version" href="https://www.python.org/">
+    <img alt="" src="https://img.shields.io/badge/v3.9-000.svg?logo=python&style=for-the-badge">
+  </a>
+  <a aria-label="Terraform version" href="https://www.terraform.io/">
+    <img alt="" src="https://img.shields.io/badge/v1.5.4-000.svg?logo=terraform&logoColor=7B42BC&style=for-the-badge">
+  </a>
+</p>
 
-Este é um teste para que possamos ver as suas habilidades como DevOps.
+## Descrição
+Esse repositório possui códigos para configurar de forma declarativa uma infraestrutura básica na AWS (EC2), bem como um servidor Web.
 
-Nesse teste você deverá configurar um servidor, aplicar os principais recursos de segurança e trabalhar com Infra as Code
+## Requisitos Iniciais
 
-[SPOILER] As instruções de entrega e apresentação do challenge estão no final deste Readme (=
+- [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) - Versão >= 2.15.3
+- [awscli](https://aws.amazon.com/cli/) - Versão >= 2.13.3
+- [Python](https://www.python.org/downloads) - Versão >= 3.9
+- [Terraform](https://developer.hashicorp.com/terraform/downloads) - Versão >= 1.5.4
 
-### Antes de começar
- 
-- Considere como deadline da avaliação a partir do início do teste. Caso tenha sido convidado a realizar o teste e não seja possível concluir dentro deste período, avise a pessoa que o convidou para receber instruções sobre o que fazer.
-- Documentar todo o processo de investigação para o desenvolvimento da atividade (README.md no seu repositório); os resultados destas tarefas são tão importantes do que o seu processo de pensamento e decisões à medida que as completa, por isso tente documentar e apresentar os seus hipóteses e decisões na medida do possível.
+## Configuração
 
+1. Criar uma conta free tier na [AWS](https://aws.amazon.com/free)
+2. Com sua conta da AWS criada, você deve [criar uma chave de acesso](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) para usar com a ferramenta [awscli](https://aws.amazon.com/cli/)
+3. Instalar todos os [requisitos iniciais](#requisitos-iniciais)
+4. Agora você precisa [configurar a awscli](https://docs.aws.amazon.com/cli/latest/reference/configure/) para usar a chave de acesso criada
 
-## **Parte 1 - Configuração do Servidor**
-
-A sua tarefa consiste em configurar um servidor baseado na nuvem e instalar e configurar alguns componentes básicos.
-
-
-1. Configurar grupo de segurança na AWS
-2. Configuração da redes para o Servidor
-3. Configurar um servidor AWS (recomenda-se o freetier) executando uma versão Ubuntu LTS.
-4. Instalar e configurar qualquer software que você recomendaria em uma configuração de servidor padrão sob as perspectivas de segurança, desempenho, backup e monitorização.
-5. Instalar e configurar o nginx para servir uma página web HTML estática.
-
-
-
-## **Part 2 – Infra as Code**
-
-Como diferencial, você poderá configurar toda a infra-estrutura com ferramentas como:
-
-- Ansible
-- Terraform
-- AWS CDK ou CloudFormation
-
-Ao ter o projeto executando em um servidor e aplicando as melhores práticas de segurança com grupos de segurança e as configurações de rede criando completamente por código.
-
-
-## **Part 3 – Continuous Delivery**
-
-Desenhar e construir uma pipeline para apoiar a entrega contínua da aplicação de monitorização construída na Parte 2 no servidor configurado na Parte 1. Descrever a pipeline utilizando um diagrama de fluxo e explicar o objetivo e o processo de seleção usado em cada uma das ferramentas e técnicas específicas que compõem a sua pipeline. 
-
-## Readme do Repositório
-
-- Deve conter o título do projeto
-- Uma descrição sobre o projeto em frase
-- Deve conter uma lista com linguagem, framework e/ou tecnologias usadas
-- Como instalar e usar o projeto (instruções)
-- Não esqueça o [.gitignore](https://www.toptal.com/developers/gitignore)
-- Se está usando github pessoal, referencie que é um challenge by coodesh:  
-
->  This is a challenge by [Coodesh](https://coodesh.com/)
-
-## Finalização e Instruções para a Apresentação
-
-1. Adicione o link do repositório com a sua solução no teste
-2. Verifique se o Readme está bom e faça o commit final em seu repositório;
-3. Envie e aguarde as instruções para seguir. Sucesso e boa sorte. =)
-
-## Suporte
-
-Use a [nossa comunidade](https://discord.gg/rdXbEvjsWu) para tirar dúvidas sobre o processo ou envie uma mensagem diretamente a um especialista no chat da plataforma. 
