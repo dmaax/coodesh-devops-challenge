@@ -105,10 +105,10 @@ Para criar a instância EC2 será necessário:
 
 ## Instalando softwares adicionais
 
-1. Acessar a instância através do SSH
-<br>
+### Acessar a instância através do SSH
 `ssh -i ~/.ssh/coodesh-keys.pem ubuntu@coodesh-vm-publicip`
-2. Atualizar os pacotes e instalar Docker
+
+### Atualizar os pacotes e instalar Docker
 ```
 sudo apt update && sudo apt upgrade -y
 curl -fsSL https://get.docker.com -o get-docker.sh
@@ -116,12 +116,17 @@ sh get-docker.sh
 sudo usermod -aG docker ubuntu
 logout
 ```
-3. Fazer o deploy do prometheus e grafana com docker compose
-<br>
+
+<!-- TODO: Add gif... -->
+
+### Fazer o deploy do prometheus e grafana com docker compose
 _Copiar o arquivo prometheus.tar.gz para a máquina virtual_
 ```
 scp -v -i ~/.ssh/coodesh-keys.pem ./files/prometheus.tar.gz ubuntu@coodesh-vm-publicip:~
 ```
+
+<!-- TODO: Add gif... -->
+
 _Criar a pasta containers com os containers necessários_
 ```
 ssh -i ~/.ssh/coodesh-keys.pem ubuntu@coodesh-vm-publicip
@@ -136,8 +141,14 @@ docker network create grafana-network
 docker volume create grafana-storage
 docker compose up -d
 ```
-4. Instalar e configurar o fail2ban
-<br>
+
+<!-- TODO: Add gif... -->
+
+_Editar as regras de entrada (security group) para permitir expor o grafana_
+
+<!-- TODO: Add gif... -->
+
+### Instalar e configurar o fail2ban
 ```
 sudo apt update && sudo apt install fail2ban -y
 sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
@@ -147,7 +158,28 @@ sudo vim /etc/fail2ban/jail.local
 
 <!-- TODO: Add gif... -->
 
+### Instalar e configurar unattended-upgrades
+```
+sudo apt update && sudo apt install unattended-upgrades
+sudo systemctl status unattended-upgrades
+sudo vim /etc/apt/apt.conf.d/50unattended-upgrades
+sudo vim /etc/apt/apt.conf.d/20auto-upgrades
+sudo systemctl restart unattended-upgrades.service
+sudo unattended-upgrades --dry-run --debug
+```
+
+<!-- TODO: Add gif... -->
+
 ## Instalando NGINX
+```
+sudo apt install nginx -y
+sudo vim /etc/nginx/nginx.conf
+sudo systemctl restart nginx
+sudo systemctl status nginx
+sudo mv /var/www/html/index.nginx-debian.html /var/www/html/oldnginx.html
+sudo vim /var/www/html/index.html
+curl http://localhost
+```
 
 <!-- TODO: Add gif... -->
 
