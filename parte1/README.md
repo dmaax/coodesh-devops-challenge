@@ -15,7 +15,7 @@ Para criar a VPC é necessário:
 - CIDR IPv4 (10.0.0.0/16)
 6. Clicar em Criar VPC
 
-<!-- TODO: Add gif... -->
+![](https://github.com/dmaax/coodesh-devops-challenge/blob/main/gifs/vpc.gif)
 
 Para criar a sub-rede é necessário:
 
