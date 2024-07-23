@@ -1,0 +1,26 @@
+---
+- name: Ensure containers directory exists
+  ansible.builtin.file:
+    path: /home/ubuntu/containers
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+    mode: '0755'
+
+- name: Unarchive prometheus.tar.gz
+  ansible.builtin.unarchive:
+    src: https://github.com/dmaax/coodesh-devops-challenge/raw/main/parte1/files/prometheus.tar.gz
+    dest: /home/ubuntu/containers
+    remote_src: true
+
+- name: Create grafana-network
+  community.docker.docker_network:
+    name: grafana-network
+
+- name: Create grafana-storage
+  community.docker.docker_volume:
+    name: grafana-storage
+
+- name: Create/start prometheus, grafana and node-exporter
+  community.docker.docker_compose_v2:
+    project_src: /home/ubuntu/containers/prometheus
