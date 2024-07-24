@@ -7,7 +7,7 @@
 - [Python](https://www.python.org/downloads) - Versão >= 3.9
 - [Terraform](https://developer.hashicorp.com/terraform/downloads) - Versão >= 1.5.4
 
-_Por favor instale todos os [requisitos](#requisitos-iniciais), sem eles o projeto não funcionará_.
+_Por favor instale todos os [requisitos](#requisitos-iniciais), sem eles o projeto não funcionará. Caso tenha dúvidas em como instalar as dependências, veja [esse arquivo](INSTALLING-DEPENDENCIES.md)_.
 
 ## Configuração
 
