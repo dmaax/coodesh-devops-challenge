@@ -1,0 +1,31 @@
+---
+- name: Ensure Nginx package is installed
+  ansible.builtin.apt:
+    name:
+      - nginx
+    state: present
+  become: true
+
+- name: Copy nginx.conf
+  ansible.builtin.template:
+    src: nginx.j2
+    dest: /etc/nginx/nginx.conf
+    mode: '0644'
+
+- name: Ensure Nginx service is restarted and enabled
+  ansible.builtin.systemd:
+    name: nginx.service
+    state: restarted
+    enabled: true
+
+- name: Remove the default index page from Nginx
+  ansible.builtin.file:
+    path: /var/www/html/index.nginx-debian.html
+    state: absent
+
+- name: Copy the new default index page
+  ansible.builtin.template:
+    src: index.j2
+    dest: /var/www/html/index.html
+    mode: '0644'
+  
