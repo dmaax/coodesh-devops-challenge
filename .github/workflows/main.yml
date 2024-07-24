@@ -58,6 +58,6 @@ jobs:
 
     - name: Run Ansible Playbook
       run: |
-        ansible-playbook -i '${{ needs.terraform.outputs.instance_public_ip }},' ansible/playbooks/site.yml
+        ansible-playbook -i '${{ needs.terraform.outputs.instance_public_ip }},' parte2/ansible/playbooks/coodesh.yml
       env:
         ANSIBLE_HOST_KEY_CHECKING: 'false'
