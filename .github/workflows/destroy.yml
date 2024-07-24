@@ -1,0 +1,30 @@
+name: "Terraform destroy"
+
+on:
+  workflow_dispatch: 
+
+jobs:
+  terraform:
+    name: "Terraform destroy"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.7
+
+      - name: Configurar as credenciais da AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2.0.3
+
+      - name: Terraform Init
+        working-directory: ./parte2/terraform/main
+        run: terraform init -backend-config="bucket=${{ secrets.AWS_BUCKET_NAME }}" -backend-config="key=${{ secrets.TERRAFORM_TFSTATE }}" -backend-config="region=${{ secrets.AWS_REGION }}" -backend-config="dynamodb_table=${{ secrets.AWS_DYNAMODB_TABLE}}" -backend-config="encrypt=true" 
+
+      - name: Terraform destroy
+        working-directory: ./parte2/terraform/main
+        run: terraform destroy --auto-approve

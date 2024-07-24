@@ -1,0 +1,63 @@
+name: Deploy Infrastructure and Application
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  terraform:
+    name: Apply Terraform Configuration
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4.1.7
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2.0.3
+
+    - name: Terraform Init
+      run: terraform init -backend-config="bucket=${{ secrets.AWS_BUCKET_NAME }}" -backend-config="key=${{ secrets.TERRAFORM_TFSTATE }}" -backend-config="region=${{ secrets.AWS_REGION }}" -backend-config="dynamodb_table=${{ secrets.AWS_DYNAMODB_TABLE}}" -backend-config="encrypt=true"
+      working-directory: ./parte2/terraform/main
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
+      working-directory: ./parte2/terraform/main
+
+  ansible:
+    name: Configure and Deploy Application
+    runs-on: ubuntu-latest
+    needs: terraform
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4.1.7
+
+    - name: Setup Python
+      uses: actions/setup-python@v5.1.1
+      with:
+        python-version: '3.11'
+
+    - name: Install Ansible
+      run: |
+        python -m pip install --upgrade pip
+        pip install ansible boto3
+
+    - name: Run Ansible Playbook
+      run: |
+        ansible-playbook -i '${{ needs.terraform.outputs.instance_public_ip }},' ansible/playbooks/site.yml
+      env:
+        ANSIBLE_HOST_KEY_CHECKING: 'false'
