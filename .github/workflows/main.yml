@@ -30,7 +30,7 @@ jobs:
       uses: hashicorp/setup-terraform@v2.0.3
 
     - name: Terraform Init
-      run: terraform init -backend-config="bucket=${{ secrets.AWS_BUCKET_NAME }}" -backend-config="key=${{ secrets.TERRAFORM_TFSTATE }}" -backend-config="region=${{ secrets.AWS_REGION }}" -backend-config="dynamodb_table=${{ secrets.AWS_DYNAMODB_TABLE" -backend-config="encrypt=true"
+      run: terraform init -backend-config="bucket=${{ secrets.AWS_BUCKET_NAME }}" -backend-config="key=${{ secrets.TERRAFORM_TFSTATE }}" -backend-config="region=${{ secrets.AWS_REGION }}" -backend-config="dynamodb_table=${{ secrets.AWS_DYNAMODB_TABLE}}" -backend-config="encrypt=true"
       working-directory: ./parte2/terraform/main
 
     - name: Terraform Apply
