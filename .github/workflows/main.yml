@@ -61,3 +61,4 @@ jobs:
         ansible-playbook -i '${{ needs.terraform.outputs.instance_public_ip }},' parte2/ansible/playbooks/coodesh.yml
       env:
         ANSIBLE_HOST_KEY_CHECKING: 'false'
+      working-directory: ./parte2/ansible
