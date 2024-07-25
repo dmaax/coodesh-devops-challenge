@@ -49,6 +49,7 @@ jobs:
 
     - name: Run Ansible Playbook
       run: |
-        cat inventory/inventory.ini
         ansible-playbook -i inventory/inventory.ini ./playbooks/coodesh.yml
       working-directory: ./parte2/ansible
+      env:
+        ANSIBLE_HOST_KEY_CHECKING: 'false'
