@@ -48,5 +48,5 @@ resource "local_file" "ansible_inventory" {
 [webserver]
 ${module.ec2.public_ip}
 EOF
-  filename = "${path.module}/../..ansible/inventory/inventory.ini"
+  filename = "${path.root}/../../ansible/inventory/inventory.ini"
 }
