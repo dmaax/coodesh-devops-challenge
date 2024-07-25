@@ -30,5 +30,5 @@ Você pode acessar a parte 2 [aqui](parte2/README.md).
 
 ## Parte 3 - Continuous Delivery
 
-<!-- TODO ADD CD-->
+Você pode acessar a parte 3 [aqui](parte3/README.md).
 
