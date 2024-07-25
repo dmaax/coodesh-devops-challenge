@@ -37,6 +37,11 @@ jobs:
       run: terraform apply -auto-approve
       working-directory: ./parte2/terraform/main
 
+    - name: Get Instance Public IP
+      id: get_ip
+      run: echo "::set-output name=instance_public_ip::$(terraform output -raw instance_public_ip)"
+      working-directory: ./parte2/terraform/main
+
   ansible:
     name: Configure and Deploy Application
     runs-on: ubuntu-latest
@@ -58,7 +63,14 @@ jobs:
 
     - name: Run Ansible Playbook
       run: |
-        ansible-playbook -i '${{ needs.terraform.outputs.instance_public_ip }},' ./playbooks/coodesh.yml
-      env:
-        ANSIBLE_HOST_KEY_CHECKING: 'false'
+        echo "[webserver]" > inventory/inventory.ini
+        echo "${{ needs.terraform.outputs.instance_public_ip }}" >> inventory/inventory.ini
+        ansible-playbook -i inventory/inventory.ini ./playbooks/coodesh.yml
       working-directory: ./parte2/ansible
+
+    # - name: Run Ansible Playbook
+    #   run: |
+    #     ansible-playbook -i '${{ needs.terraform.outputs.instance_public_ip }},' ./playbooks/coodesh.yml
+    #   env:
+    #     ANSIBLE_HOST_KEY_CHECKING: 'false'
+    #   working-directory: ./parte2/ansible
