@@ -37,6 +37,11 @@ jobs:
       run: terraform apply -auto-approve
       working-directory: ./parte2/terraform/main
 
+    - name: Get Instance Public IP
+      id: get_ip
+      run: echo "INSTANCE_PUBLIC_IP=$(terraform output -raw public_ip)" >> $GITHUB_ENV
+      working-directory: ./parte2/terraform/main
+
     - name: Setup Python
       uses: actions/setup-python@v5.1.1
       with:
@@ -46,12 +51,15 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install ansible boto3
+        
+    - name: Install SSH Key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        known_hosts: unnecessary
 
-    - name: Set Up SSH Key
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
+    - name: Adding Known Hosts
+      run: ssh-keyscan -H ${{ env.INSTANCE_PUBLIC_IP }} >> ~/.ssh/known_hosts
 
     - name: Run Ansible Playbook
       run: |
