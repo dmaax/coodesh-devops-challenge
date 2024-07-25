@@ -42,3 +42,11 @@ module "ec2" {
   key_name          = var.key_name                            # Passando o nome da chave como variável para o módulo ec2
   public_key        = var.public_key                          # Passando a chave pública como variável para o módulo ec2
 }
+
+resource "local_file" "ansible_inventory" {
+  content  = <<EOF
+[webserver]
+${module.ec2.public_ip}
+EOF
+  filename = "${path.module}/../..ansible/inventory/inventory.ini"
+}
