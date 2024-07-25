@@ -63,9 +63,7 @@ jobs:
 
     - name: Run Ansible Playbook
       run: |
-        echo "[webserver]" > inventory/inventory.ini
-        echo "${{ needs.terraform.outputs.public_ip }}" >> inventory/inventory.ini
-        ansible-playbook -i inventory/inventory.ini ./playbooks/coodesh.yml
+        echo "[webserver]" > inventory/inventory.ini; echo "${{ needs.terraform.outputs.public_ip }}" >> inventory/inventory.ini; ansible-playbook -i inventory/inventory.ini ./playbooks/coodesh.yml
       working-directory: ./parte2/ansible
 
     # - name: Run Ansible Playbook
